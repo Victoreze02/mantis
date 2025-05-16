@@ -1,18 +1,20 @@
+import { useState } from "react";
 import Logo from "../components/Logo";
 import Navbar from "../components/Navbar";
 import Sidebar from "../pages/Sidebar";
 import Profilecards from "./Profilecards";
 import Tables from "./Tables";
+import SearchBar from "../components/SearchBar";
 
  
 function Dashboard() {
-
+    //  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
 
   return (
   <>
   
-    <div className="bg-white min-h-screen   flex">
+    <div className="bg-gray-100 min-h-screen   flex">
     <Logo />
       
       {/* Sidebar */} 
@@ -20,6 +22,21 @@ function Dashboard() {
 
       {/* Main Content */}
       <main className="flex-1 p-6">
+        <SearchBar />
+
+        {/* <div className="flex h-screen">
+      {isSidebarOpen && <Sidebar />}
+      <div className="flex-1 flex flex-col">
+        <SearchBar
+          toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
+          isSidebarOpen={isSidebarOpen}
+        /> */}
+        {/* Your main content here */}
+      {/* </div>
+    </div> */}
+
+
+    
         {/* Profile Cards */}
 
         <div className="flex  gap-6">

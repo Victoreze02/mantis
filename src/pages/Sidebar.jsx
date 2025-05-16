@@ -12,12 +12,16 @@ import {
 } from "lucide-react";
 
 import { useState } from "react";
+import { Link } from 'react-router-dom';
 
-const SidebarSection = ({ icon: Icon, label, children }) => {
+
+
+const SidebarSection = ({ icon: Icon, label, children, path }) => {
   const [open, setOpen] = useState(false);
   const hasChildren = children && children.length > 0;
 
   return (
+    
     <div className="text-sm">
       <div
         className="flex items-center justify-between px-4 py-2 cursor-pointer hover:bg-gray-100"
@@ -39,31 +43,50 @@ const SidebarSection = ({ icon: Icon, label, children }) => {
       </div>
       {open && hasChildren && (
         <div className="ml-6">
-          {children.map(({ label, icon: ChildIcon }, idx) => (
-            <div
+          {children.map(({ label, icon: ChildIcon,path }, idx) => path ? (
+            <Link
+            to={path}
               key={idx}
-              className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:bg-gray-50 hover:text-black cursor-pointer"
+              className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:bg-gray-50 hover:text-black cursor-pointer" 
             >
               <ChildIcon size={16} />
               <span>{label}</span>
-            </div>
+            </Link>
+
+             ) : (
+              <div
+                key={idx}
+                className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:bg-gray-50 hover:text-black cursor-pointer"
+              >
+                <ChildIcon size={16} />
+                <span>{label}</span>
+              </div>
+
+
+            
           ))}
         </div>
       )}
     </div>
+    
   );
 };
 
 export default function Sidebar() {
   return (
-    <aside className="w-64 h-screen bg-white border-r shadow-sm">
-      <h2 className="text-xl font-bold px-4 py-4 border-b">Mantis</h2>
+    <>
+       
+
+    <aside className="w-64  h-fullscreen bg-white border-r shadow-sm">
+      
+        
+      <h2 className="text-xl text-blue-600 font-bold px-4 py-4 border-b">Mantis</h2>
       <nav className="py-4 space-y-1">
         <SidebarSection
           icon={LayoutDashboard}
           label="Dashboard"
           children={[
-            {label: "Default", icon: CircleGauge }
+            {label: "Default", icon: CircleGauge, path:"/dashboard" }
           ]}
         />
 
@@ -71,9 +94,9 @@ export default function Sidebar() {
           icon={Users}
           label="Farm Management"
           children={[
-            { label: "Customers", icon: Users },
-            { label: "Income", icon: DollarSign },
-            { label: "Expenses", icon:ReceiptText },
+            { label: "Customers", icon: Users, path:"/customerdashboard"},
+            { label: "Income", icon: DollarSign, path:"/incomedashboard" },
+            { label: "Expenses", icon:ReceiptText, path:"/expensesdashboard" },
           ]}
         />
 
@@ -96,5 +119,6 @@ export default function Sidebar() {
         />
       </nav>
     </aside>
+    </>
   );
 }
